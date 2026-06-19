@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This document defines the standard process for reporting, documenting, and tracking defects identified within the Tarcin Simulation Platform.
+This document defines the standard process for reporting, documenting, and tracking defects identified within the Mbed0 Simulation Platform.
 
 Following a consistent bug reporting process helps engineers:
 
@@ -32,6 +32,17 @@ If the issue already exists, add information to the existing report instead of c
 
 ---
 
+# Search Existing Issues
+
+Before creating a new issue:
+
+1. Open the **Issues** page.
+2. Search using relevant keywords.
+3. Check both Open and Closed issues.
+4. If a matching issue exists, add comments or additional evidence instead of creating a new report.
+
+---
+
 # Bug Creation Process
 
 ## Step 1: Create a New Issue
@@ -50,40 +61,34 @@ Bug Report
 
 ---
 
-## Step 2: Assign Issue ID
+## Step 2: Create a Meaningful Title
 
-Use the format:
+GitHub automatically assigns issue numbers.
 
-```text
-BUG-0001
-BUG-0002
-BUG-0003
-```
-
-Issue IDs must be unique.
-
----
-
-## Step 3: Write a Clear Title
+Use a descriptive title that clearly explains the issue.
 
 ### Good Examples
 
 ```text
-BUG-0042: LCD Display Remains Blank in MicroPython
+LCD Works in C++ but Not in MicroPython
 
-BUG-0043: Push Button Counter Does Not Increment
+Push Button Counter Does Not Increment
 
-BUG-0044: RGB LED Brightness Reduces After Second Cycle
+RGB LED Brightness Decreases During Color Cycling
+
+Buzzer Does Not Activate Below Distance Threshold
 ```
 
 ### Bad Examples
 
 ```text
-LCD Problem
-
 Not Working
 
-Error Found
+Error
+
+Problem Found
+
+LCD Issue
 ```
 
 ---
@@ -99,18 +104,24 @@ Every bug report must contain the following sections.
 ### Simulator Version
 
 ```text
-v1.5.2
+v1.0.0
 ```
 
 ### Board
+
+Examples:
 
 ```text
 Raspberry Pi Pico
 ESP32
 Arduino UNO
+Arduino Nano
+Arduino Mega
 ```
 
 ### Runtime
+
+Examples:
 
 ```text
 MicroPython
@@ -119,12 +130,15 @@ C++
 
 ### Component
 
+Examples:
+
 ```text
 LCD
 Push Button
 Buzzer
 Servo
 RGB LED
+Sensor
 ```
 
 ---
@@ -150,6 +164,35 @@ Describe what actually happens.
 ```text
 Program executes successfully but LCD remains blank.
 ```
+
+---
+
+## Impact
+
+Describe how the issue affects users.
+
+### Examples
+
+```text
+Prevents project execution.
+
+Produces incorrect simulation results.
+
+Affects all LCD projects using MicroPython.
+
+Causes simulator instability.
+```
+
+---
+
+## Reproducibility
+
+Select one:
+
+* [ ] Always reproducible
+* [ ] Sometimes reproducible
+* [ ] Rarely reproducible
+* [ ] Unable to reproduce consistently
 
 ---
 
@@ -200,6 +243,19 @@ LCD GND → GND
 
 ---
 
+## Attachments
+
+Attach any relevant evidence:
+
+* Screenshots
+* Videos
+* Project files
+* Circuit diagrams
+* Console logs
+* Error messages
+
+---
+
 ## Screenshots
 
 Attach screenshots showing:
@@ -209,7 +265,7 @@ Attach screenshots showing:
 * Error messages
 * Unexpected behavior
 
-Required whenever possible.
+Screenshots significantly improve issue investigation.
 
 ---
 
@@ -221,6 +277,7 @@ Attach a short screen recording if the issue involves:
 * Animation issues
 * UI behavior
 * Sensor updates
+* Intermittent failures
 
 ---
 
@@ -235,6 +292,7 @@ Examples:
 * Simulator crashes
 * Runtime crashes
 * Project cannot execute
+* Data corruption
 
 ---
 
@@ -247,6 +305,7 @@ Examples:
 * GPIO not working
 * LCD not displaying
 * Sensor values incorrect
+* Communication failure
 
 ---
 
@@ -258,6 +317,7 @@ Examples:
 
 * Delayed response
 * Incorrect timing behavior
+* Display glitches
 
 ---
 
@@ -270,53 +330,54 @@ Examples:
 * UI alignment
 * Documentation issue
 * Label mismatch
+* Cosmetic defects
 
 ---
 
 # Labels
 
-Apply appropriate labels.
+Apply appropriate labels where possible.
 
 ## Board
 
 ```text
-pico
-esp32
-arduino
-```
-
-## Component
-
-```text
-lcd
-button
-buzzer
-servo
-rgb-led
-sensor
+board:pico
+board:esp32
+board:arduino
 ```
 
 ## Runtime
 
 ```text
-micropython
-cpp
+runtime:micropython
+runtime:cpp
 ```
 
-## Severity
+## Component
 
 ```text
-critical
-high
-medium
-low
+component:lcd
+component:button
+component:buzzer
+component:servo
+component:rgb-led
+component:sensor
+```
+
+## Priority
+
+```text
+priority:critical
+priority:high
+priority:medium
+priority:low
 ```
 
 ---
 
 # Root Cause Analysis Process
 
-Once investigation begins, update the issue with:
+Once investigation begins, the issue should be updated with:
 
 ## Root Cause
 
@@ -326,7 +387,7 @@ Example:
 LCD initialization sequence differs between C++ and MicroPython runtime implementation.
 ```
 
-## Impact
+## Impact Analysis
 
 Example:
 
@@ -355,15 +416,17 @@ Before closing an issue:
 * [ ] Fix implemented
 * [ ] Fix tested
 * [ ] Regression tests passed
-* [ ] Screenshots updated
+* [ ] Evidence updated
 * [ ] Verification completed
 
 ---
 
-# Issue Status Workflow
+# Issue Workflow
+
+Every issue progresses through the following stages:
 
 ```text
-Open
+Backlog
   ↓
 Investigating
   ↓
@@ -395,9 +458,7 @@ A bug can only be marked as Closed when:
 
 # Example Bug Report
 
-## BUG-0051
-
-### Title
+## Title
 
 LCD Works in C++ but Not in MicroPython
 
@@ -421,6 +482,14 @@ LCD should display "Hello World".
 
 LCD remains blank.
 
+### Impact
+
+Users cannot execute LCD-based MicroPython projects successfully.
+
+### Reproducibility
+
+Always reproducible.
+
 ### Steps to Reproduce
 
 1. Connect LCD.
@@ -434,4 +503,7 @@ High
 
 ### Status
 
-Open
+Backlog
+
+```
+```
